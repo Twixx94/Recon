@@ -12,7 +12,10 @@ export default function Login(){
     function hdlLogin(){
         console.log(loginInput, passwordInput);
         navigation.navigate('Home') //replace() => pour pas avoir la possibilitée de revenir sur la page login
-        const user = [{loginInput, passwordInput}];
+        
+        let user = {}
+        user.login = loginInput;
+        user.password = passwordInput;
 
         const URL = "http://localhost:3000/recon/user";
         const OPTIONS = {
@@ -22,9 +25,8 @@ export default function Login(){
            body: JSON.stringify(user)
         }
         fetch(URL, OPTIONS)
-        .then(resp => resp.text())
-        .then(resp => console.log(resp))
-        .then(console.log(user))
+        .then(res => res.json())
+        .then(resp => console.log('Success:',resp))
         .catch(err => console.log(err))
      }
 
